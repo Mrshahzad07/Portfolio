@@ -9,7 +9,6 @@ This repository contains the source code for my personal portfolio website. The 
 ## Table of Contents
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Setup](#setup)
 - [Usage](#usage)
 
 ## Features
