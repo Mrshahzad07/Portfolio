@@ -7,12 +7,10 @@ Here's a README description for your GitHub repository based on the provided fil
 This repository contains the source code for my personal portfolio website. The website showcases my skills, projects, and professional experiences as a Full-Stack Developer. It includes sections for Home, About, Services, Portfolio, and Contact, and is designed to be responsive and visually appealing.
 
 ## Table of Contents
-- [Demo](#demo)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Setup](#setup)
 - [Usage](#usage)
-- [License](#license)
 
 ## Features
 - **Responsive Design**: The website is fully responsive and works well on all devices.
