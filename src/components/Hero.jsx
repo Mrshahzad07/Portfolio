@@ -2,6 +2,7 @@ import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiDownload, FiCode, FiDatabase, FiServer } from 'react-icons/fi';
 import { SiReact, SiSpringboot } from 'react-icons/si';
 import { useEffect, useState, useRef } from 'react';
+import resumePdf from '../assets/mdShahzad^.pdf';
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState('');
@@ -299,7 +300,7 @@ const Hero = () => {
               <FiMail /> Contact Me
             </motion.button>
             <motion.a
-              href="/resume.pdf"
+              href={resumePdf}
               download
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
