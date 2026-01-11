@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX, FiDownload, FiArrowUp, FiSun, FiMoon } from 'react-icons/fi';
 import { HiOutlineSparkles } from 'react-icons/hi';
 import { useTheme } from '../context/ThemeContext';
+import resumePdf from '../assets/mdShahzad^.pdf';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -168,7 +169,7 @@ const Navbar = () => {
               </motion.button>
               
               <motion.a
-                href="/resume.pdf"
+                href={resumePdf}
                 download
                 className={`ml-2 px-5 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all duration-300 ${
                   scrolled 
@@ -259,7 +260,7 @@ const Navbar = () => {
                     </motion.a>
                   ))}
                   <motion.a
-                    href="/resume.pdf"
+                    href={resumePdf}
                     download
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
