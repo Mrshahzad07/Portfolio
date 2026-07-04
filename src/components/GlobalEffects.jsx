@@ -58,7 +58,7 @@ const GlobalEffects = () => {
           x: mousePos.x - 16,
           y: mousePos.y - 16,
           scale: isHovering ? 1.5 : 1,
-          backgroundColor: isHovering ? 'rgba(139, 92, 246, 0.1)' : 'transparent',
+          backgroundColor: isHovering ? 'rgba(139, 92, 246, 0.1)' : 'rgba(139, 92, 246, 0)',
           borderColor: isHovering ? 'rgba(34, 211, 238, 0.8)' : 'rgba(139, 92, 246, 0.5)'
         }}
         transition={{ type: 'tween', ease: 'backOut', duration: 0.15 }}

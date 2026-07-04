@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { FiMail, FiLinkedin, FiGithub, FiSend, FiUser, FiMessageSquare, FiMapPin, FiCheckCircle, FiPhone } from 'react-icons/fi';
 import { HiOutlineSparkles, HiOutlinePaperAirplane } from 'react-icons/hi';
 
@@ -30,8 +31,22 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    emailjs.send(
+      'service_sp87753', // Service ID
+      'template_es26b4l', // Template ID
+      {
+        from_name: formData.name,
+        name: formData.name,
+        from_email: formData.email,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      },
+      {
+        publicKey: '1uzrZcO2vxk4g4-8F' // Public Key
+      }
+    )
+    .then(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
@@ -40,7 +55,12 @@ const Contact = () => {
       setTimeout(() => {
         setIsSubmitted(false);
       }, 5000);
-    }, 1500);
+    })
+    .catch((error) => {
+      console.error('FAILED...', error);
+      setIsSubmitting(false);
+      alert('Failed to send message. Please try again later.');
+    });
   };
 
   const contactMethods = [
