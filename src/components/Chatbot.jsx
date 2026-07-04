@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMessageSquare, FiX, FiSend, FiChevronDown } from 'react-icons/fi';
 import { BsRobot } from 'react-icons/bs';
+import resumePdf from '../assets/Md_Shahzad_Resume.pdf';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +45,7 @@ const Chatbot = () => {
         responseText = "I'm initiating the download for Md Shahzad's resume. You can also find the button in the Hero section!";
         // Trigger download
         const link = document.createElement('a');
-        link.href = '/src/assets/Md_Shahzad_Resume.pdf'; // Adjust path if needed
+        link.href = resumePdf;
         link.download = 'Md_Shahzad_Resume.pdf';
         document.body.appendChild(link);
         link.click();
