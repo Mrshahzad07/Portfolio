@@ -8,11 +8,17 @@ import Experience from './components/Experience';
 import GitHub from './components/GitHub';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import NeuralBackground from './components/NeuralBackground';
+import GlobalEffects from './components/GlobalEffects';
+import Chatbot from './components/Chatbot';
 
 function App() {
   return (
     <ThemeProvider>
-      <div className="App min-h-screen bg-white dark:bg-dark-400 transition-colors duration-300">
+      <div className="App min-h-screen bg-white dark:bg-dark-400 transition-colors duration-300 relative cursor-none">
+        <GlobalEffects />
+        <NeuralBackground />
+        <Chatbot />
         <Navbar />
         <Hero />
         <About />

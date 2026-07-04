@@ -1,9 +1,23 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { FiBriefcase, FiCalendar, FiMapPin, FiCheckCircle, FiAward, FiCode } from 'react-icons/fi';
+import { FiBriefcase, FiCalendar, FiMapPin, FiCheckCircle, FiAward, FiCode, FiGlobe } from 'react-icons/fi';
 import { HiOutlineSparkles, HiOutlineOfficeBuilding } from 'react-icons/hi';
-import { SiSpringboot, SiReact, SiMysql } from 'react-icons/si';
+import { SiSpringboot, SiReact, SiMysql, SiFastapi, SiPython } from 'react-icons/si';
+import { BsRobot } from 'react-icons/bs';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -30 },
+  show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100 } }
+};
 
 const Experience = () => {
   const ref = useRef(null);
@@ -11,177 +25,195 @@ const Experience = () => {
 
   const experiences = [
     {
-      title: 'Java Full-Stack Developer Intern',
+      title: 'Agentic Full Stack Developer Intern',
       company: 'Tap Academy',
-      location: 'Bangalore, India',
-      period: 'July 2025 - Present',
+      location: 'Bengaluru',
+      period: 'Jul 2025 – Jan 2026',
       type: 'Internship',
-      description: 'Intensive full-stack development training with hands-on project experience building enterprise-grade applications.',
+      current: false,
+      description: 'Developed and deployed AI-powered full-stack applications with a focus on career analytics, NLP-based recommendation engines, and scalable REST APIs.',
       achievements: [
-        'Developed 3+ full-stack web applications using Java, Spring Boot, and React',
-        'Built and deployed RESTful APIs handling 1000+ API requests',
-        'Implemented secure database operations using Hibernate ORM and MySQL',
-        'Collaborated with team of 5 developers using Git version control',
-        'Participated in 20+ code reviews following agile methodologies',
+        'Developed and deployed CareerLytics using Java, Spring Boot, React.js, and MySQL as part of the internship',
+        'Designed scalable REST APIs and optimized database schemas, reducing backend API response time by 40%',
+        'Implemented hybrid recommendation algorithms for jobs and learning resources using NLP techniques',
+        'Built responsive React.js dashboards for career analytics and recommendation visualization',
+        'Performed unit testing, integration testing, and cloud deployment',
       ],
       technologies: [
         { name: 'Spring Boot', icon: <SiSpringboot /> },
         { name: 'React', icon: <SiReact /> },
         { name: 'MySQL', icon: <SiMysql /> },
+        { name: 'NLP', icon: <BsRobot /> },
       ],
       gradient: 'from-violet-500 to-cyan-500',
+    },
+    {
+      title: 'AI Automation Intern',
+      company: 'Hsunahd Consultancy',
+      location: 'Remote',
+      period: 'Mar 2025',
+      type: 'Remote Internship',
+      current: false,
+      description: 'Worked on AI-powered automation workflows for digital business operations, including Shopify store configuration and business process automation.',
+      achievements: [
+        'Worked on AI-powered automation workflows for digital business operations',
+        'Configured Shopify stores, website hosting, and domain integration',
+        'Supported product catalog management and business automation processes',
+      ],
+      technologies: [
+        { name: 'AI Automation', icon: <BsRobot /> },
+        { name: 'Shopify', icon: <FiGlobe /> },
+      ],
+      gradient: 'from-emerald-500 to-teal-500',
     },
   ];
 
   return (
-    <section id="experience" className="section-padding bg-white dark:bg-dark-300 relative overflow-hidden" ref={ref}>
+    <section id="experience" className="section-padding section-dark-alt relative overflow-hidden" ref={ref}>
       {/* Background decorations */}
-      <div className="absolute top-1/3 -left-32 w-64 h-64 bg-gradient-to-br from-violet-200/40 to-cyan-200/30 dark:from-violet-900/25 dark:to-cyan-900/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/3 -right-32 w-64 h-64 bg-gradient-to-tl from-pink-200/30 to-purple-200/30 dark:from-pink-900/20 dark:to-purple-900/20 rounded-full blur-3xl"></div>
+      <div className="absolute top-1/3 -left-32 w-[600px] h-[600px] bg-violet-900/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-1/3 -right-32 w-[600px] h-[600px] bg-cyan-900/10 rounded-full blur-[150px] pointer-events-none" />
       
-      <div className="container-custom relative">
-        {/* Section Header */}
+      <div className="container-custom relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary-100 to-accent-100 dark:from-primary-900/40 dark:to-accent-900/40 text-primary-600 dark:text-primary-300 rounded-full text-sm font-semibold mb-6 border border-primary-200 dark:border-primary-700/50"
-          >
+          <span className="badge-glow mb-6">
             <FiBriefcase className="text-lg" />
             Career Journey
-          </motion.span>
-          <h2 className="section-title text-gray-900 dark:text-white">
-            Work <span className="gradient-text-static">Experience</span>
+          </span>
+          <h2 className="section-title">
+            Work <span className="gradient-text">Experience</span>
           </h2>
           <div className="section-divider mt-4 mb-6"></div>
           <p className="section-subtitle">
-            My professional journey and hands-on experience in software development
+            My professional journey in AI/ML engineering and full-stack development
           </p>
         </motion.div>
 
-        {/* Experience Cards */}
-        <div className="max-w-5xl mx-auto">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              {/* Main Card */}
-              <div className="relative group">
-                {/* Glow effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${exp.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
-                
-                <div className="relative bg-white dark:bg-dark-100 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-white/10 hover:shadow-2xl transition-all duration-500">
-                  {/* Top gradient bar */}
-                  <div className={`h-2 bg-gradient-to-r ${exp.gradient}`}></div>
+        <div className="relative max-w-5xl mx-auto mt-16">
+          {/* Vertical Data Stream Timeline */}
+          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gray-800 hidden md:block overflow-hidden rounded-full">
+            <div className="absolute top-0 left-0 w-full h-[30%] bg-gradient-to-b from-transparent via-cyan-400 to-transparent animate-[scan_2s_linear_infinite]" />
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-violet-500/20 via-cyan-500/20 to-emerald-500/20" />
+          </div>
+
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+            className="space-y-12"
+          >
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="relative md:pl-24"
+              >
+                {/* Timeline node/dot */}
+                <div className={`absolute left-0 md:left-[1.8rem] top-8 w-6 h-6 rounded-full bg-gradient-to-br ${exp.gradient} border-4 border-[#0a0a14] z-10 hidden md:flex items-center justify-center shadow-[0_0_15px_currentColor]`}>
+                  <div className="w-2 h-2 bg-[#0a0a14] rounded-full animate-ping" />
+                </div>
+
+                <div className="glass-card p-6 md:p-8 hover:bg-white/10 transition-colors relative overflow-hidden group">
+                  {/* Holographic Circuit Pattern */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')] [background-size:10px_10px]" />
                   
-                  <div className="p-8 md:p-10">
-                    {/* Header */}
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-8">
-                      <div className="flex items-start gap-4">
-                        <motion.div
-                          whileHover={{ rotate: 360, scale: 1.1 }}
-                          transition={{ duration: 0.6 }}
-                          className={`p-4 bg-gradient-to-r ${exp.gradient} rounded-2xl text-white shadow-lg`}
-                        >
+                  {/* Glowing Top Border */}
+                  <div className={`absolute top-0 left-0 w-0 h-1 bg-gradient-to-r ${exp.gradient} group-hover:w-full transition-all duration-700 ease-out`} />
+
+                  <div className="flex flex-col md:flex-row md:items-start justify-between mb-8 relative z-10">
+                      <div className="flex items-start gap-5">
+                        <div className={`p-4 rounded-2xl bg-gradient-to-br ${exp.gradient} text-white shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform`}>
                           <HiOutlineOfficeBuilding size={28} />
-                        </motion.div>
+                        </div>
                         <div>
-                          <span className={`inline-block px-3 py-1 bg-gradient-to-r ${exp.gradient} text-white text-xs font-bold rounded-full mb-2 shadow-md`}>
-                            {exp.type}
-                          </span>
-                          <h3 className="text-2xl font-bold text-gray-800 dark:text-white">{exp.title}</h3>
-                          <p className="text-lg font-semibold text-primary-600 dark:text-primary-400">{exp.company}</p>
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            <span className={`inline-block px-3 py-1 bg-gradient-to-r ${exp.gradient} text-white text-xs font-bold rounded-full`}>
+                              {exp.type}
+                            </span>
+                            {exp.current && (
+                              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold rounded-full">
+                                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-ping absolute"></span>
+                                <span className="w-2 h-2 bg-emerald-400 rounded-full relative"></span>
+                                Current
+                              </span>
+                            )}
+                          </div>
+                          <h3 className="text-2xl font-bold text-white mb-1">{exp.title}</h3>
+                          <p className="text-lg font-medium text-gray-400">{exp.company}</p>
                         </div>
                       </div>
                       
-                      <div className="flex flex-wrap gap-3 text-gray-500 dark:text-gray-400 text-sm">
-                        <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-white/10 px-3 py-1.5 rounded-full">
-                          <FiCalendar size={14} />
+                      <div className="flex flex-wrap md:flex-col lg:flex-row gap-3 text-sm">
+                        <div className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl text-gray-300">
+                          <FiCalendar className="text-violet-400" />
                           <span>{exp.period}</span>
                         </div>
-                        <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-white/10 px-3 py-1.5 rounded-full">
-                          <FiMapPin size={14} />
+                        <div className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl text-gray-300">
+                          <FiMapPin className="text-cyan-400" />
                           <span>{exp.location}</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Description */}
-                    <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed text-lg">
+                    <p className="text-gray-300 mb-8 leading-relaxed text-lg">
                       {exp.description}
                     </p>
 
-                    {/* Achievements */}
                     <div className="mb-8">
-                      <h4 className="font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-                        <FiAward className="text-primary-500" />
+                      <h4 className="font-bold text-white mb-4 flex items-center gap-2">
+                        <FiAward className="text-violet-400" />
                         Key Achievements
                       </h4>
                       <div className="grid md:grid-cols-2 gap-4">
                         {exp.achievements.map((achievement, achIndex) => (
-                          <motion.div
-                            key={achIndex}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={isInView ? { opacity: 1, x: 0 } : {}}
-                            transition={{ duration: 0.4, delay: 0.5 + achIndex * 0.1 }}
-                            className="flex items-start gap-3 p-4 bg-gradient-to-r from-gray-50 to-white dark:from-white/5 dark:to-white/10 rounded-xl border border-gray-100 dark:border-white/10 hover:shadow-md transition-all duration-300"
-                          >
-                            <div className="flex-shrink-0 mt-0.5">
-                              <FiCheckCircle className="text-green-500" size={18} />
+                          <div key={achIndex} className="flex items-start gap-3 p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 hover:border-white/10 transition-colors">
+                            <div className="flex-shrink-0 mt-1">
+                              <FiCheckCircle className="text-emerald-400" size={16} />
                             </div>
-                            <span className="text-gray-600 dark:text-gray-300 text-sm">{achievement}</span>
-                          </motion.div>
+                            <span className="text-gray-300 text-sm leading-relaxed">{achievement}</span>
+                          </div>
                         ))}
                       </div>
                     </div>
 
-                    {/* Technologies Used */}
                     <div>
-                      <h4 className="font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-                        <FiCode className="text-primary-500" />
+                      <h4 className="font-bold text-white mb-4 flex items-center gap-2">
+                        <FiCode className="text-cyan-400" />
                         Technologies Used
                       </h4>
                       <div className="flex flex-wrap gap-3">
                         {exp.technologies.map((tech, techIndex) => (
-                          <motion.div
-                            key={techIndex}
-                            whileHover={{ scale: 1.1, y: -2 }}
-                            className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/30 dark:to-accent-900/30 rounded-xl border border-primary-100 dark:border-primary-700/50"
-                          >
-                            <span className="text-primary-600 dark:text-primary-400 text-xl">{tech.icon}</span>
-                            <span className="font-medium text-gray-700 dark:text-gray-200">{tech.name}</span>
-                          </motion.div>
+                          <div key={techIndex} className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-lg border border-white/10 text-gray-300">
+                            <span className="text-violet-400">{tech.icon}</span>
+                            <span className="text-sm font-medium">{tech.name}</span>
+                          </div>
                         ))}
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                </motion.div>
+            ))}
+          </motion.div>
         </div>
 
-        {/* Looking for Opportunities */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-16 text-center"
+          className="mt-20 text-center"
         >
-          <div className="inline-flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/30 dark:to-accent-900/30 rounded-2xl border border-primary-100 dark:border-primary-700/50 shadow-lg">
-            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/50"></div>
-            <span className="text-gray-700 dark:text-gray-200 font-medium">
-              <HiOutlineSparkles className="inline mr-2 text-primary-500" />
-              Actively seeking full-time opportunities to contribute to innovative projects
+          <div className="inline-flex items-center gap-3 px-8 py-5 glass-card shadow-[0_0_40px_rgba(139,92,246,0.15)]">
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span>
+            </span>
+            <span className="text-white font-medium">
+              Actively seeking full-time AI/ML Engineer & Full Stack Developer opportunities
             </span>
           </div>
         </motion.div>

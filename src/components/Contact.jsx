@@ -1,71 +1,56 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { FiMail, FiLinkedin, FiGithub, FiSend, FiUser, FiMessageSquare, FiMapPin, FiCheckCircle } from 'react-icons/fi';
+import { FiMail, FiLinkedin, FiGithub, FiSend, FiUser, FiMessageSquare, FiMapPin, FiCheckCircle, FiPhone } from 'react-icons/fi';
 import { HiOutlineSparkles, HiOutlinePaperAirplane } from 'react-icons/hi';
 
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: '',
+    subject: '',
+    message: ''
   });
-
-  const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
-  const [focused, setFocused] = useState({});
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-    if (errors[e.target.name]) {
-      setErrors({
-        ...errors,
-        [e.target.name]: '',
-      });
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
-    
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    }
-    
-    return newErrors;
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newErrors = validateForm();
+    setIsSubmitting(true);
     
-    if (Object.keys(newErrors).length === 0) {
-      console.log('Form submitted:', formData);
-      setSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setSubmitted(false), 5000);
-    } else {
-      setErrors(newErrors);
-    }
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
+    }, 1500);
   };
 
   const contactMethods = [
+    {
+      icon: <FiPhone size={24} />,
+      title: 'Phone',
+      value: '+91 8340156191',
+      link: 'tel:+918340156191',
+      color: 'from-emerald-500 to-teal-500',
+    },
     {
       icon: <FiMail size={24} />,
       title: 'Email',
@@ -90,231 +75,200 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="section-padding bg-white dark:bg-dark-300 relative overflow-hidden" ref={ref}>
+    <section id="contact" className="section-padding section-dark-alt relative overflow-hidden" ref={ref}>
       {/* Background decorations */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-violet-200/30 to-cyan-200/20 dark:from-violet-900/20 dark:to-cyan-900/15 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-pink-200/30 to-purple-200/20 dark:from-pink-900/20 dark:to-purple-900/15 rounded-full blur-3xl"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-violet-900/10 rounded-full blur-[150px] pointer-events-none" />
       
-      <div className="container-custom relative">
-        {/* Section Header */}
+      <div className="container-custom relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary-100 to-accent-100 dark:from-primary-900/40 dark:to-accent-900/40 text-primary-600 dark:text-primary-300 rounded-full text-sm font-semibold mb-6 border border-primary-200 dark:border-primary-700/50"
-          >
-            <HiOutlinePaperAirplane className="text-lg" />
+          <span className="badge-glow mb-6">
+            <FiMail className="text-lg" />
             Get In Touch
-          </motion.span>
-          <h2 className="section-title text-gray-900 dark:text-white">
-            Contact <span className="gradient-text-static">Me</span>
+          </span>
+          <h2 className="section-title">
+            Contact <span className="gradient-text">Me</span>
           </h2>
           <div className="section-divider mt-4 mb-6"></div>
           <p className="section-subtitle">
-            Let's build something great together 🚀
+            Let's build something intelligent together 🚀
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Info */}
+        <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
+          {/* Left Column: Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:col-span-2 space-y-8"
           >
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-              <HiOutlineSparkles className="text-primary-500" />
-              Let's Connect
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed text-lg">
-              I'm always open to discussing new projects, creative ideas, or opportunities 
-              to be part of your vision. Feel free to reach out through any of these channels!
-            </p>
+            <div className="glass-card p-8 h-full">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                <HiOutlineSparkles className="text-violet-400" />
+                Let's Connect
+              </h3>
+              <p className="text-gray-400 mb-8 leading-relaxed">
+                I'm always open to discussing AI/ML projects, full-stack opportunities, or creative ideas. 
+                Whether you need an intelligent system built or a scalable application — let's connect!
+              </p>
 
-            {/* Contact Methods */}
-            <div className="space-y-4 mb-8">
-              {contactMethods.map((method, index) => (
-                <motion.a
-                  key={index}
-                  href={method.link}
-                  target={method.link.startsWith('http') ? '_blank' : undefined}
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                  whileHover={{ x: 10, scale: 1.02 }}
-                  className="group flex items-center gap-4 p-5 bg-white dark:bg-dark-100 rounded-2xl shadow-lg border border-gray-100 dark:border-white/10 hover:shadow-2xl transition-all duration-300"
-                >
-                  <div className={`p-4 bg-gradient-to-r ${method.color} rounded-xl text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    {method.icon}
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-bold text-gray-800 dark:text-white">{method.title}</p>
-                    <p className="text-gray-500 dark:text-gray-400">{method.value}</p>
-                  </div>
-                  <motion.div
-                    initial={{ x: 0, opacity: 0 }}
-                    whileHover={{ x: 5, opacity: 1 }}
-                    className="text-primary-500 text-xl"
+              <div className="space-y-6">
+                {contactMethods.map((method, index) => (
+                  <a
+                    key={index}
+                    href={method.link}
+                    target={method.link.startsWith('http') ? '_blank' : undefined}
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group"
                   >
-                    →
-                  </motion.div>
-                </motion.a>
-              ))}
-            </div>
-
-            {/* Location */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="flex items-center gap-3 text-gray-500 dark:text-gray-400"
-            >
-              <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
-                <FiMapPin className="text-primary-500" size={20} />
+                    <div className={`p-3 rounded-xl bg-gradient-to-br ${method.color} text-white shadow-lg group-hover:scale-110 transition-transform`}>
+                      {method.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors">{method.title}</h4>
+                      <p className="text-sm text-gray-400">{method.value}</p>
+                    </div>
+                  </a>
+                ))}
               </div>
-              <span className="font-medium">Bangalore, Karnataka, India 🇮🇳</span>
-            </motion.div>
+
+              <div className="mt-10 p-6 rounded-xl bg-white/5 border border-white/10 text-center">
+                <FiMapPin className="text-cyan-400 text-3xl mx-auto mb-3" />
+                <h4 className="font-bold text-white mb-1">Location</h4>
+                <p className="text-gray-400 text-sm">Bengaluru, Karnataka, India</p>
+                <p className="text-gray-500 text-xs mt-2">Open to Remote & Relocation</p>
+              </div>
+            </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Right Column: Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
+            className="lg:col-span-3"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-3xl blur-xl opacity-10"></div>
-              <form onSubmit={handleSubmit} className="relative bg-white/90 dark:bg-dark-100/90 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-white/10">
-                {submitted && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700/50 text-green-700 dark:text-green-300 px-4 py-4 rounded-xl mb-6"
-                  >
-                    <FiCheckCircle size={24} />
-                    <div>
-                      <p className="font-semibold">Message sent successfully!</p>
-                      <p className="text-sm">I'll get back to you soon.</p>
-                    </div>
-                  </motion.div>
-                )}
+            <div className="glass-card p-8 md:p-10 relative overflow-hidden h-full">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 via-cyan-500 to-emerald-500" />
+              
+              <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                <HiOutlinePaperAirplane className="text-cyan-400" />
+                Send a Message
+              </h3>
 
-                {/* Name Field */}
-                <div className="mb-6">
-                  <label className={`flex items-center gap-2 text-sm font-semibold mb-2 transition-colors ${focused.name ? 'text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300'}`}>
-                    <FiUser />
-                    <span>Your Name</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    onFocus={() => setFocused({ ...focused, name: true })}
-                    onBlur={() => setFocused({ ...focused, name: false })}
-                    className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 outline-none bg-white dark:bg-dark-200 text-gray-800 dark:text-white ${
-                      errors.name 
-                        ? 'border-red-400 bg-red-50 dark:bg-red-900/20' 
-                        : focused.name 
-                          ? 'border-primary-500 bg-primary-50/50 dark:bg-primary-900/20 shadow-lg shadow-primary-500/20' 
-                          : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20'
-                    }`}
-                    placeholder="Your Full Name"
-                  />
-                  {errors.name && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-red-500 text-sm mt-2 flex items-center gap-1"
-                    >
-                      ⚠️ {errors.name}
-                    </motion.p>
-                  )}
-                </div>
-
-                {/* Email Field */}
-                <div className="mb-6">
-                  <label className={`flex items-center gap-2 text-sm font-semibold mb-2 transition-colors ${focused.email ? 'text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300'}`}>
-                    <FiMail />
-                    <span>Your Email</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    onFocus={() => setFocused({ ...focused, email: true })}
-                    onBlur={() => setFocused({ ...focused, email: false })}
-                    className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 outline-none bg-white dark:bg-dark-200 text-gray-800 dark:text-white ${
-                      errors.email 
-                        ? 'border-red-400 bg-red-50 dark:bg-red-900/20' 
-                        : focused.email 
-                          ? 'border-primary-500 bg-primary-50/50 dark:bg-primary-900/20 shadow-lg shadow-primary-500/20' 
-                          : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20'
-                    }`}
-                    placeholder="xyz@example.com"
-                  />
-                  {errors.email && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-red-500 text-sm mt-2 flex items-center gap-1"
-                    >
-                      ⚠️ {errors.email}
-                    </motion.p>
-                  )}
-                </div>
-
-                {/* Message Field */}
-                <div className="mb-8">
-                  <label className={`flex items-center gap-2 text-sm font-semibold mb-2 transition-colors ${focused.message ? 'text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300'}`}>
-                    <FiMessageSquare />
-                    <span>Your Message</span>
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    onFocus={() => setFocused({ ...focused, message: true })}
-                    onBlur={() => setFocused({ ...focused, message: false })}
-                    rows="5"
-                    className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 outline-none resize-none bg-white dark:bg-dark-200 text-gray-800 dark:text-white ${
-                      errors.message 
-                        ? 'border-red-400 bg-red-50 dark:bg-red-900/20' 
-                        : focused.message 
-                          ? 'border-primary-500 bg-primary-50/50 dark:bg-primary-900/20 shadow-lg shadow-primary-500/20' 
-                          : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20'
-                    }`}
-                    placeholder="Tell me about your project or idea..."
-                  ></textarea>
-                  {errors.message && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-red-500 text-sm mt-2 flex items-center gap-1"
-                    >
-                      ⚠️ {errors.message}
-                    </motion.p>
-                  )}
-                </div>
-
-                {/* Submit Button */}
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full btn-primary ripple shiny flex items-center justify-center gap-3 text-lg"
+              {isSubmitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="h-full min-h-[400px] flex flex-col items-center justify-center text-center p-8"
                 >
-                  <FiSend />
-                  <span>Send Message</span>
-                </motion.button>
-              </form>
+                  <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mb-6">
+                    <FiCheckCircle className="text-emerald-400 text-4xl" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-white mb-4">Message Sent!</h4>
+                  <p className="text-gray-400">
+                    Thank you for reaching out. I'll get back to you as soon as possible.
+                  </p>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="name" className="text-sm font-medium text-gray-300 ml-1">Your Name</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                          <FiUser className="text-gray-500" />
+                        </div>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                          className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all"
+                          placeholder="John Doe"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="text-sm font-medium text-gray-300 ml-1">Your Email</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                          <FiMail className="text-gray-500" />
+                        </div>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all"
+                          placeholder="john@example.com"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="subject" className="text-sm font-medium text-gray-300 ml-1">Subject</label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all"
+                      placeholder="Project Discussion"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="message" className="text-sm font-medium text-gray-300 ml-1">Your Message</label>
+                    <div className="relative">
+                      <div className="absolute top-4 left-4 pointer-events-none">
+                        <FiMessageSquare className="text-gray-500" />
+                      </div>
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                        rows="5"
+                        className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all resize-none"
+                        placeholder="Hello, I'd like to talk about..."
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-bold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-70"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        Sending Message...
+                      </>
+                    ) : (
+                      <>
+                        <FiSend />
+                        Send Message
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
             </div>
           </motion.div>
         </div>
