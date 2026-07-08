@@ -1,52 +1,53 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { FiGithub, FiStar, FiGitBranch, FiExternalLink, FiGitCommit } from 'react-icons/fi';
+import { FiGithub, FiStar, FiGitBranch, FiExternalLink, FiGitCommit, FiUsers } from 'react-icons/fi';
 import { HiOutlineSparkles, HiOutlineFire } from 'react-icons/hi';
 import { BsRobot } from 'react-icons/bs';
+import { GitHubCalendar } from 'react-github-calendar';
 
 const GitHub = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const stats = [
-    { label: 'Repositories', value: '10+', icon: <FiGitBranch size={28} />, color: 'from-violet-500 to-purple-600' },
-    { label: 'Total Commits', value: '200+', icon: <FiGitCommit size={28} />, color: 'from-emerald-500 to-teal-600' },
-    { label: 'Stars Earned', value: '15+', icon: <FiStar size={28} />, color: 'from-amber-500 to-orange-500' },
-    { label: 'Contributions', value: '50+', icon: <HiOutlineFire size={28} />, color: 'from-pink-500 to-rose-600' },
+    { label: 'Repositories', value: '21', icon: <FiGitBranch size={28} />, color: 'from-violet-500 to-purple-600' },
+    { label: 'Total Commits', value: '100+', icon: <FiGitCommit size={28} />, color: 'from-emerald-500 to-teal-600' },
+    { label: 'Followers', value: '2', icon: <FiUsers size={28} />, color: 'from-amber-500 to-orange-500' },
+    { label: 'Contributions', value: '124+', icon: <HiOutlineFire size={28} />, color: 'from-pink-500 to-rose-600' },
   ];
 
   const repositories = [
     {
       name: 'CareerLytics',
       description: 'AI-powered career growth platform with skill-gap analysis and NLP recommendations',
-      language: 'Java',
-      stars: 5,
-      languageColor: 'bg-red-500',
+      language: 'JavaScript',
+      stars: 0,
+      languageColor: 'bg-yellow-400',
       gradient: 'from-violet-500 to-purple-600',
     },
     {
-      name: 'AI-EOS',
-      description: 'AI-powered HR platform with RAG chatbot and automated salary processing',
-      language: 'Python',
-      stars: 3,
-      languageColor: 'bg-yellow-400',
+      name: 'empManagementChatBot',
+      description: 'AI Employee Management ChatBot to automate HR processes and support',
+      language: 'TypeScript',
+      stars: 0,
+      languageColor: 'bg-blue-400',
       gradient: 'from-emerald-500 to-teal-500',
     },
     {
-      name: 'Customer-Interaction-Agent',
-      description: 'AI email automation agent using n8n and Groq LLM',
-      language: 'n8n',
-      stars: 2,
-      languageColor: 'bg-orange-500',
+      name: 'TaskManagement-System',
+      description: 'Comprehensive task management system for efficient team collaboration',
+      language: 'JavaScript',
+      stars: 0,
+      languageColor: 'bg-yellow-400',
       gradient: 'from-orange-500 to-red-500',
     },
     {
-      name: 'Portfolio-Website',
+      name: 'Portfolio',
       description: 'Responsive portfolio with stunning animations and glassmorphism',
-      language: 'React',
-      stars: 4,
-      languageColor: 'bg-cyan-400',
+      language: 'JavaScript',
+      stars: 0,
+      languageColor: 'bg-yellow-400',
       gradient: 'from-cyan-500 to-blue-600',
     },
   ];
@@ -155,53 +156,36 @@ const GitHub = () => {
           </div>
         </motion.div>
 
-        {/* Tap Academy Streaks */}
+        {/* GitHub Contributions Graph */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-16"
         >
-          <div className="glass-card p-8 border border-white/10 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-500" />
+          <div className="glass-card p-6 md:p-10 border border-white/10 relative overflow-hidden flex flex-col items-center">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-cyan-500" />
             
-            <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
-              <h4 className="font-bold text-white flex items-center gap-3 text-xl md:text-2xl">
-                <HiOutlineFire className="text-orange-500 text-3xl" />
-                Tap Academy Learning Streaks
-              </h4>
-              <a
-                href="https://tai.thetapacademy.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity w-full md:w-auto justify-center"
-              >
-                View Profile
-                <FiExternalLink size={16} />
-              </a>
+            <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+              <FiGithub className="text-emerald-400" />
+              GitHub Contributions
+            </h3>
+            
+            <div className="w-full overflow-x-auto pb-4 custom-scrollbar flex justify-center text-white/80">
+              <GitHubCalendar 
+                username="Mrshahzad07" 
+                colorScheme="dark"
+                theme={{
+                  dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+                }}
+                fontSize={14}
+                blockSize={14}
+                blockMargin={4}
+              />
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
-              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/5">
-                <div className="text-3xl md:text-4xl font-black text-orange-400 mb-2">146</div>
-                <div className="text-xs uppercase tracking-widest text-gray-400">Days Streak 🔥</div>
-              </div>
-              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/5">
-                <div className="text-3xl md:text-4xl font-black text-violet-400 mb-2">1516</div>
-                <div className="text-xs uppercase tracking-widest text-gray-400">Submissions</div>
-              </div>
-              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/5">
-                <div className="text-3xl md:text-4xl font-black text-cyan-400 mb-2">146</div>
-                <div className="text-xs uppercase tracking-widest text-gray-400">Longest Streak</div>
-              </div>
-              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/5">
-                <div className="text-3xl md:text-4xl font-black text-emerald-400 mb-2">5+ Mo</div>
-                <div className="text-xs uppercase tracking-widest text-gray-400">Consistent</div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-2 justify-center">
-              {['Python', 'Java', 'Spring Boot', 'React', 'FastAPI', 'NLP', 'LLMs', 'MySQL', 'REST APIs', 'DSA'].map((skill, index) => (
+            <div className="flex flex-wrap gap-2 justify-center mt-8">
+              {['JavaScript', 'TypeScript', 'React', 'Node.js', 'Express', 'MongoDB', 'PostgreSQL', 'Tailwind CSS'].map((skill, index) => (
                 <span
                   key={index}
                   className="px-4 py-2 bg-white/5 text-gray-300 text-sm font-medium rounded-lg border border-white/5"
