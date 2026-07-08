@@ -1,17 +1,54 @@
-https://mdshahzad.netlify.app
-# React + Vite
+# Md Shahzad - Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Live Preview: [https://mdshahzad.netlify.app](https://mdshahzad.netlify.app)
 
-Currently, two official plugins are available:
+A modern, responsive personal portfolio built to showcase projects, skills, and professional experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Technologies Used
 
-## React Compiler
+- **Frontend Framework:** React 19
+- **Build Tool:** Vite (Rolldown)
+- **Routing:** React Router DOM
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **Icons:** Lucide React & React Icons
+- **Email Service:** EmailJS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📦 Getting Started
 
-## Expanding the ESLint configuration
+Follow these steps to set up the project locally:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <your-repo-url>
+   ```
+
+2. Navigate into the project directory:
+   ```bash
+   cd Portfolio-main/Portfolio-main
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+The application will be available at `http://localhost:5173`.
+
+## 🛠️ Scripts
+
+- `npm run dev`: Starts the local development server.
+- `npm run build`: Builds the app for production.
+- `npm run preview`: Locally preview the production build.
+- `npm run lint`: Runs ESLint to check for code quality issues.
