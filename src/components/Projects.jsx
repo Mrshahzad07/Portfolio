@@ -11,6 +11,7 @@ import {
   SiFastapi,
   SiTypescript,
   SiTailwindcss,
+  SiFirebase,
 } from 'react-icons/si';
 
 const TiltCard = ({ children, className }) => {
@@ -119,6 +120,24 @@ const Projects = () => {
       live: null,
       gradient: 'from-orange-500 via-red-500 to-pink-500',
       category: 'AI Automation',
+      featured: true,
+    },
+    {
+      title: 'ApplyMarket',
+      subtitle: 'Job & Product Discovery Platform',
+      description:
+        'A modern platform to discover jobs, tech products, and software deals, featuring an AI-powered resume analyzer using Gemini API for instant ATS scoring and skill gap analysis.',
+      longDesc: 'Built with React 19, Tailwind CSS v4, and Firebase. Features a real-time synchronized database, secure Admin Dashboard for CRUD operations, and an integrated AI resume analyzer parsing PDF/DOCX files.',
+      tech: [
+        { name: 'React', icon: <SiReact />, color: 'text-cyan-400' },
+        { name: 'Tailwind', icon: <SiTailwindcss />, color: 'text-cyan-500' },
+        { name: 'Firebase', icon: <SiFirebase />, color: 'text-yellow-500' },
+      ],
+      impact: 'AI Resume Parsing',
+      github: 'https://github.com/Mrshahzad07/ApplyMarket',
+      live: 'https://applymarket.netlify.app/',
+      gradient: 'from-blue-500 via-indigo-500 to-purple-500',
+      category: 'Full Stack + AI',
       featured: true,
     },
     {
